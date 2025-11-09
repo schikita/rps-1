@@ -1,149 +1,613 @@
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #0b0f29 0%, #01010a 100%);
+  background: #02030b;
   font-family: "Orbitron", sans-serif;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
-.arena {
-  width: 95%;
-  max-width: 420px;
-  background: rgba(10, 10, 30, 0.8);
-  border: 2px solid rgba(0, 255, 255, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-  padding: 20px;
+/* ФОН */
+
+.arena-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+      circle at top,
+      rgba(0, 255, 255, 0.06),
+      transparent 60%
+    ),
+    radial-gradient(circle at bottom, rgba(255, 0, 150, 0.06), transparent 60%);
+}
+.glow {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.25;
+  mix-blend-mode: screen;
+}
+.glow-1 {
+  background: radial-gradient(circle, #00ffff, transparent);
+  top: -10vmax;
+  left: -10vmax;
+}
+.glow-2 {
+  background: radial-gradient(circle, #ff0099, transparent);
+  bottom: -15vmax;
+  right: -10vmax;
+}
+.glow-3 {
+  background: radial-gradient(circle, #00ff88, transparent);
+  top: 20%;
+  right: 10%;
+}
+
+/* ИНТРО: ВИДЕО + АВАТАРЫ */
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.15) contrast(1.05);
+}
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 95vh;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 70px;
+  background: radial-gradient(
+    circle at top,
+    rgba(0, 0, 0, 0.25),
+    transparent 70%
+  );
 }
 
-header,
-footer {
+.intro-logo {
+  font-size: 2rem;
+  letter-spacing: 0.25em;
+  color: #00f6ff;
+  text-shadow: 0 0 18px #00f6ff;
+  margin-bottom: 4px;
+}
+.intro-sub {
+  font-size: 0.75rem;
+  opacity: 0.9;
+  margin-bottom: 14px;
+}
+
+/* Витрина аватаров */
+
+.intro-avatars {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
+  animation: introFloat 3s ease-in-out infinite alternate;
+}
+
+.intro-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+@keyframes introFloat {
+  from {
+    transform: translateY(0);
+    opacity: 0.96;
+  }
+  to {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.skip-btn {
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.7);
+  color: #00f6ff;
+  font-size: 0.75rem;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+/* АВТОРИЗАЦИЯ */
+
+.auth-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 92%;
+  max-width: 420px;
+  padding: 18px 16px 16px;
+  border-radius: 18px;
+  background: radial-gradient(
+    circle at top,
+    rgba(0, 0, 30, 0.98),
+    rgba(0, 0, 0, 0.98)
+  );
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 26px rgba(0, 255, 255, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-title {
+  font-size: 1.3rem;
+  text-align: center;
+  color: #00f6ff;
+}
+.auth-subtitle {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #9fdfff;
+}
+
+.auth-input {
+  margin-top: 6px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(2, 5, 15, 0.96);
+  color: #fff;
+  font-family: inherit;
+}
+
+.auth-label {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #9fdfff;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.avatar-option {
+  height: 56px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
+  transition: all 0.18s;
+}
+.avatar-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.5);
+}
+.avatar-option.selected {
+  outline: 2px solid #00f6ff;
+  box-shadow: 0 0 22px rgba(0, 255, 255, 0.9);
+}
+
+.upload-label {
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: #00f6ff;
+  cursor: pointer;
+}
+.upload-label input {
+  display: none;
+}
+
+.avatar-preview {
+  margin-top: 4px;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(3, 8, 20, 0.96);
+  background-size: cover;
+  background-position: center;
+}
+
+.enter-btn {
+  margin-top: 10px;
+  padding: 9px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: linear-gradient(90deg, #00f6ff, #0066ff);
+  color: #020612;
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.8);
+}
+
+/* АРЕНА */
+
+.arena {
+  position: relative;
+  z-index: 1;
+  width: 96%;
+  max-width: 480px;
+  height: 96vh;
+  padding: 14px 14px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: radial-gradient(
+    circle at top,
+    rgba(0, 0, 40, 0.96),
+    rgba(0, 0, 10, 0.98)
+  );
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), 0 0 60px rgba(255, 0, 150, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.logo {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  color: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff;
+}
+.scoreboard {
+  font-size: 1.8rem;
+  color: #00f6ff;
+  text-shadow: 0 0 12px #00f6ff;
+}
+
+.bot-info,
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 255, 255, 0.4);
+  background: radial-gradient(circle at 30% 20%, #00ffff, #003355);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+.avatar.bot {
+  background: radial-gradient(circle at 70% 20%, #ff0099, #2b0033);
+}
+
+.status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.status.yellow {
+  background: #ffeb3b;
+  box-shadow: 0 0 8px #ffeb3b;
+}
+.status.green {
+  background: #00ff6a;
+  box-shadow: 0 0 8px #00ff6a;
+}
+
+/* Руки, оверлей, выбор ходов — можно взять из предыдущей версии без изменений */
+/* Базовый контейнер под иконки в кнопках и руках */
+.choice::before,
+.hand::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Привязка наших R/P/S-иконок по data-move */
+
+/* КАМЕНЬ */
+.choice[data-move="rock"]::before,
+.hand[data-move="rock"]::after {
+  background-image: url("assets/rps-rock.jpg");
+}
+
+/* НОЖНИЦЫ */
+.choice[data-move="scissors"]::before,
+.hand[data-move="scissors"]::after {
+  background-image: url("assets/rps-scissors.jpg");
+}
+
+/* БУМАГА */
+.choice[data-move="paper"]::before,
+.hand[data-move="paper"]::after {
+  background-image: url("assets/rps-paper.jpg");
+}
+
+/* --- АРЕНА --- */
+
+.arena {
+  position: relative;
+  z-index: 1;
+  width: 320px;
+  height: 100vh;
+  max-height: 640px;
+  padding: 10px 10px 14px;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #020616;
+  box-shadow: 0 0 24px rgba(0, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+/* шапка */
+
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.scoreboard {
-  font-size: 2rem;
-  color: cyan;
-  text-shadow: 0 0 10px cyan;
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff;
 }
 
-.avatar {
-  width: 70px;
-  height: 70px;
+.bot-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.bot-label {
+  font-size: 12px;
+  color: #00f6ff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.bot-avatar {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: 3px solid #00ffff55;
-  background: radial-gradient(circle at 30% 30%, #00ffff55, #003333);
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-  transition: transform 0.3s ease;
-}
-.avatar.bot {
-  background: radial-gradient(circle at 70% 30%, #ff009955, #330033);
-}
-.avatar.active {
-  transform: scale(1.1);
+  background: url("assets/skin-6.jpg") center/cover no-repeat;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
 }
 
-.status {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-top: 5px;
-  transition: background 0.3s;
-}
-.status.red {
-  background: #f00;
-  box-shadow: 0 0 10px #f00;
-}
-.status.yellow {
-  background: #ff0;
-  box-shadow: 0 0 10px #ff0;
-}
-.status.green {
-  background: #0f0;
-  box-shadow: 0 0 10px #0f0;
+.bot-ready-pill {
+  margin-top: 2px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #007b4b;
+  box-shadow: 0 0 8px rgba(0, 255, 140, 0.7);
 }
 
+/* статус и счёт */
+
+.status-block {
+  margin-top: 6px;
+  font-size: 10px;
+  color: #bfe9ff;
+}
+
+.status-title {
+  font-size: 11px;
+  color: #00f6ff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-text {
+  margin-top: 2px;
+  min-height: 14px;
+}
+
+.score-line {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #00f6ff;
+}
 .countdown {
-  text-align: center;
-  font-size: 3rem;
-  color: #0ff;
-  text-shadow: 0 0 20px #0ff;
-  animation: pulse 1s infinite alternate;
+  margin-left: 6px;
+  font-size: 11px;
+  color: #ffeb3b;
 }
 
-@keyframes pulse {
+/* кулаки */
+
+.fists-area {
+  flex: 0 0 auto;
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fist {
+  width: 120px;
+  height: 110px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* слева — твоя рука */
+.fist-player {
+  background-image: url("assets/hand-player-fist.png");
+}
+
+/* справа — рука соперника */
+.fist-bot {
+  background-image: url("assets/hand-bot-fist.png");
+}
+
+/* лёгкая анимация "наготове" */
+.fist-ready {
+  animation: fistPulse 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes fistPulse {
   from {
-    transform: scale(1);
-    opacity: 1;
+    transform: translateY(0);
   }
   to {
-    transform: scale(1.2);
-    opacity: 0.7;
+    transform: translateY(-3px);
   }
 }
 
-.result {
-  text-align: center;
-  font-size: 2rem;
-  min-height: 2.5rem;
+/* гекс-платформа */
+
+.hex-platform {
+  margin: 10px auto 0;
+  width: 170px;
+  height: 38px;
+  border-radius: 40px;
+  border: 2px solid #00f6ff;
+  box-shadow: 0 0 14px rgba(0, 255, 255, 0.7);
+  opacity: 0.9;
 }
 
-.actions {
-  text-align: center;
-  width: 100%;
-}
+/* нижняя панель: аватар + готов */
 
-.ready {
-  width: 100%;
-  background: #ff0;
-  color: #000;
-  font-weight: bold;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  transition: background 0.3s;
-}
-.ready.green {
-  background: #0f0;
-}
-.ready:hover {
-  background: #ffea00;
-}
-
-.choices {
+.bottom-ui {
+  margin-top: 14px;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: space-between;
 }
-.choice {
-  font-size: 2rem;
-  background: none;
-  border: 2px solid cyan;
-  border-radius: 10px;
-  padding: 10px;
-  transition: all 0.2s ease;
+
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: url("assets/skin-1.jpg") center/cover no-repeat;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+}
+
+.player-name {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* большая кнопка ГОТОВ */
+
+.ready-main {
+  width: 150px;
+  padding: 10px 0;
+  border-radius: 8px;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
+  color: #e6fff9;
+  background: linear-gradient(180deg, #009f6b, #006b47);
+  box-shadow: 0 0 14px rgba(0, 255, 160, 0.9);
+  text-transform: uppercase;
 }
-.choice.selected {
-  background: cyan;
-  color: #000;
-  transform: scale(1.2);
-  box-shadow: 0 0 20px cyan;
+
+/* панель выборов ходов внизу */
+
+.choices-bar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
 }
-.choice:hover {
-  transform: scale(1.2);
-  border-color: #0ff;
-  box-shadow: 0 0 10px #0ff;
+
+.choice-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+  background-size: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* разные фоны под иконки — подгони под свои */
+
+.choice-btn[data-move="rock"] {
+  background-color: #ff7a33;
+  background-image: url("assets/rps-rock.png");
+}
+.choice-btn[data-move="scissors"] {
+  background-color: #007bff;
+  background-image: url("assets/rps-scissors.png");
+}
+.choice-btn[data-move="paper"] {
+  background-color: #34c759;
+  background-image: url("assets/rps-paper.png");
+}
+
+.choice-btn.selected {
+  box-shadow: 0 0 14px rgba(0, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* важное: в самом низу файла */
+.hidden {
+  display: none !important;
 }

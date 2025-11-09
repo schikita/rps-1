@@ -7,37 +7,169 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="arena">
-      <header>
-        <div class="scoreboard">
-          <span id="playerScore">0</span> : <span id="botScore">0</span>
+    <!-- Фон -->
+    <div class="arena-bg">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+    </div>
+
+    <!-- 1. Интро: видео + витрина аватаров -->
+    <div id="introScreen" class="intro-screen">
+      <video
+        class="intro-video"
+        src="assets/rps-intro.mp4"
+        autoplay
+        muted
+        playsinline
+      ></video>
+
+      <div class="intro-overlay">
+        <div class="intro-logo">RPS ARENA</div>
+        <div class="intro-sub">Rock • Paper • Scissors • Battle for RPS</div>
+
+        <!-- Витрина аватаров поверх видео -->
+        <div class="intro-avatars" id="introAvatars">
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-1.jpg')"
+          ></div>
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-2.jpg')"
+          ></div>
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-3.jpg')"
+          ></div>
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-4.jpg')"
+          ></div>
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-5.jpg')"
+          ></div>
+          <div
+            class="intro-avatar"
+            style="background-image: url('assets/skin-6.jpg')"
+          ></div>
         </div>
-        <div class="bot-zone">
-          <div class="avatar bot"></div>
-          <div class="status" id="botStatus"></div>
+
+        <button id="skipIntroBtn" class="skip-btn">Пропустить</button>
+      </div>
+    </div>
+
+    <!-- 2. Авторизация (после интро) -->
+    <div id="authScreen" class="auth-screen hidden">
+      <div class="auth-card">
+        <div class="auth-title">Вход в арену</div>
+        <div class="auth-subtitle">Выбери образ и представься</div>
+
+        <input
+          id="nicknameInput"
+          class="auth-input"
+          type="text"
+          maxlength="20"
+          placeholder="Никнейм"
+        />
+
+        <div class="auth-label">Выбери аватар</div>
+        <div class="avatar-grid">
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-1.jpg"
+            style="background-image: url('assets/skin-1.jpg')"
+          ></div>
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-2.jpg"
+            style="background-image: url('assets/skin-2.jpg')"
+          ></div>
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-3.jpg"
+            style="background-image: url('assets/skin-3.jpg')"
+          ></div>
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-4.jpg"
+            style="background-image: url('assets/skin-4.jpg')"
+          ></div>
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-5.jpg"
+            style="background-image: url('assets/skin-5.jpg')"
+          ></div>
+          <div
+            class="avatar-option"
+            data-avatar="assets/skin-6.jpg"
+            style="background-image: url('assets/skin-6.jpg')"
+          ></div>
+        </div>
+
+        <label class="upload-label">
+          <input id="avatarUpload" type="file" accept="image/*" />
+          или загрузить своё фото
+        </label>
+
+        <div class="auth-label">Предпросмотр</div>
+        <div id="avatarPreview" class="avatar-preview"></div>
+
+        <button id="enterArenaBtn" class="enter-btn">Войти в арену</button>
+      </div>
+    </div>
+
+    <!-- 3. Игровая арена (после авторизации) -->
+    <!-- 3. Игровая арена -->
+    <div id="gameScreen" class="arena hidden">
+      <header class="top-bar">
+        <div class="logo">RPS ARENA</div>
+
+        <div class="bot-panel">
+          <div class="bot-label">БОТ</div>
+          <div class="bot-avatar"></div>
+          <div class="bot-ready-pill" id="botReadyPill">ГОТОВ</div>
         </div>
       </header>
 
-      <main>
-        <div class="countdown" id="countdown">10</div>
-        <div class="result" id="result"></div>
-      </main>
+      <section class="status-block">
+        <div id="arenaStatus" class="status-title">АРЕНА ГОТОВА</div>
+        <div id="arenaMessage" class="status-text">
+          Нажми «Готов» для следующего раунда
+        </div>
+        <div class="score-line">
+          <span id="playerScore">0</span>
+          <span>:</span>
+          <span id="botScore">0</span>
+          <span id="countdown" class="countdown"></span>
+        </div>
+      </section>
 
-      <footer>
-        <div class="player-zone">
-          <div class="avatar player"></div>
-          <div class="status" id="playerStatus"></div>
+      <section class="fists-area">
+        <!-- левая рука игрока -->
+        <div id="playerFist" class="fist fist-player"></div>
+        <!-- правая рука бота -->
+        <div id="botFist" class="fist fist-bot"></div>
+      </section>
+
+      <!-- неоновая платформа под руками -->
+      <div class="hex-platform"></div>
+
+      <section class="bottom-ui">
+        <div class="player-card">
+          <div id="playerAvatar" class="player-avatar"></div>
+          <div id="playerName" class="player-name">СЕРЖ</div>
         </div>
 
-        <div class="actions">
-          <button id="readyBtn" class="ready">Готов</button>
-          <div class="choices" id="choices">
-            <button class="choice" data-move="rock">🪨</button>
-            <button class="choice" data-move="scissors">✂️</button>
-            <button class="choice" data-move="paper">📜</button>
-          </div>
-        </div>
-      </footer>
+        <button id="readyBtn" class="ready-main">ГОТОВ</button>
+      </section>
+
+      <section class="choices-bar">
+        <button class="choice-btn" data-move="rock"></button>
+        <button class="choice-btn" data-move="scissors"></button>
+        <button class="choice-btn" data-move="paper"></button>
+      </section>
     </div>
 
     <script src="script.js"></script>
