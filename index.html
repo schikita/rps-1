@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPS Arena</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="arena">
+      <header>
+        <div class="scoreboard">
+          <span id="playerScore">0</span> : <span id="botScore">0</span>
+        </div>
+        <div class="bot-zone">
+          <div class="avatar bot"></div>
+          <div class="status" id="botStatus"></div>
+        </div>
+      </header>
+
+      <main>
+        <div class="countdown" id="countdown">10</div>
+        <div class="result" id="result"></div>
+      </main>
+
+      <footer>
+        <div class="player-zone">
+          <div class="avatar player"></div>
+          <div class="status" id="playerStatus"></div>
+        </div>
+
+        <div class="actions">
+          <button id="readyBtn" class="ready">Готов</button>
+          <div class="choices" id="choices">
+            <button class="choice" data-move="rock">🪨</button>
+            <button class="choice" data-move="scissors">✂️</button>
+            <button class="choice" data-move="paper">📜</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

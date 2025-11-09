@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #0b0f29 0%, #01010a 100%);
+  font-family: "Orbitron", sans-serif;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arena {
+  width: 95%;
+  max-width: 420px;
+  background: rgba(10, 10, 30, 0.8);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 95vh;
+}
+
+header,
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scoreboard {
+  font-size: 2rem;
+  color: cyan;
+  text-shadow: 0 0 10px cyan;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #00ffff55;
+  background: radial-gradient(circle at 30% 30%, #00ffff55, #003333);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+.avatar.bot {
+  background: radial-gradient(circle at 70% 30%, #ff009955, #330033);
+}
+.avatar.active {
+  transform: scale(1.1);
+}
+
+.status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-top: 5px;
+  transition: background 0.3s;
+}
+.status.red {
+  background: #f00;
+  box-shadow: 0 0 10px #f00;
+}
+.status.yellow {
+  background: #ff0;
+  box-shadow: 0 0 10px #ff0;
+}
+.status.green {
+  background: #0f0;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.countdown {
+  text-align: center;
+  font-size: 3rem;
+  color: #0ff;
+  text-shadow: 0 0 20px #0ff;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.result {
+  text-align: center;
+  font-size: 2rem;
+  min-height: 2.5rem;
+}
+
+.actions {
+  text-align: center;
+  width: 100%;
+}
+
+.ready {
+  width: 100%;
+  background: #ff0;
+  color: #000;
+  font-weight: bold;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  transition: background 0.3s;
+}
+.ready.green {
+  background: #0f0;
+}
+.ready:hover {
+  background: #ffea00;
+}
+
+.choices {
+  display: flex;
+  justify-content: space-around;
+}
+.choice {
+  font-size: 2rem;
+  background: none;
+  border: 2px solid cyan;
+  border-radius: 10px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.choice.selected {
+  background: cyan;
+  color: #000;
+  transform: scale(1.2);
+  box-shadow: 0 0 20px cyan;
+}
+.choice:hover {
+  transform: scale(1.2);
+  border-color: #0ff;
+  box-shadow: 0 0 10px #0ff;
+}
